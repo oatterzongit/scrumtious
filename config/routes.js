@@ -12,4 +12,10 @@ router.get('/', pagesController.welcome);
 router.get('/users',     usersController.index);
 router.get('/users/:id', usersController.show);
 
+// teams resource paths:
+router.get('/teams', teamsController.index);
+// reports resource paths:
+
+
+
 module.exports = router;
