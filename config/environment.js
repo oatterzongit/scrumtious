@@ -1,8 +1,8 @@
 var _ = require('lodash');
 
 var localEnvVars = {
-  TITLE:      'virtual_stand_up',
-  SAFE_TITLE: 'virtual_stand_up'
+  TITLE:      'Scrum*tious',
+  SAFE_TITLE: 'scrumtious'
 };
 
 // Merge all environmental variables into one object.
