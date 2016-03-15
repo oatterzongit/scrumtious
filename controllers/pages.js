@@ -10,9 +10,11 @@ function login(req, res, next) {
 };
 
 function dash(req, res, next) {
-  res.render('pages/dashboard');
-  // getUserBoards();
-  // res.redirect("")
+  res.render('pages/dashboard', {
+    user:   req.user,
+    token:  req.session.trelloOauthToken,
+    secret: req.session.trelloOauthSecret
+  });
 };
 
 
