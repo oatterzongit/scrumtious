@@ -8,9 +8,9 @@ var cookieParser = require('cookie-parser');
 var passport     = require('passport');
 var session      = require('express-session');
 var uuid         = require('uuid');
-
 // Dotenv
 require('dotenv').load();
+
 
 
 // Load local libraries.

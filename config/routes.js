@@ -12,6 +12,9 @@ var teamsController = require('../controllers/teams');
 // root path:
 router.get('/', pagesController.login);
 
+// dash:
+router.get('/dash', pagesController.dash);
+
 // users resource paths:
 router.get('/users',     usersController.index);
 router.get('/users/:id', usersController.show);
