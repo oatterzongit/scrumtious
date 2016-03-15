@@ -11,10 +11,7 @@
 
     <form>
       <label for="boards">My Boards</label>
-      <select id="boards">
-        <option>Board 1</option>
-        <option>Board 2</option>
-      </select>
+      <select id="boards-dropdown"></select>
     </form>
 
     <ul class="drop-down" id="board-list">
@@ -24,20 +21,5 @@
   </main>
 
   <%- include('../partials/scripts') %>
-
-  <script>
-    var uid,
-        trelloId,
-        trelloToken,
-        trelloSecret;
-
-    $(document).ready(function() {
-      $main = $("main");
-      uid          = $main.data("uid");
-      trelloId     = $main.data("trello-id");
-      trelloToken  = $main.data("trello-token");
-      trelloSecret = $main.data("trello-secret");
-    });
-  </script>
 </body>
 </html>
