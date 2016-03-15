@@ -1,8 +1,8 @@
 var mongoose = require('mongoose'),
     debug    = require('debug')('app:models');
 
-var Team = mongoose.model('Team', teamSchema);
-var Report = mongoose.model('Report', postSchema);
+// var Team = mongoose.model('Team', teamSchema);
+// var Report = mongoose.model('Report', postSchema);
 
 var teamSchema = new mongoose.Schema({
   creator:       {
@@ -15,18 +15,18 @@ var teamSchema = new mongoose.Schema({
                  },
   title:         { type: String, required: true },
   trello_bid:    { type: String, required: true },
-  reports:       [reportSchema]
+  reports:       []
 });
 
-var reportSchema = new mongoose.Schema({
-  createdAt:     { type: Date,   default: Date.now },
-  current:       { type: String, required: true },
-  challenges:    { type: String, required: true },
-  outlook:       { type: String, required: true },
-  trello_bid:    { type: String, required: true },
-  user:          [userSchema], // ref to user
-  comments:      [commentSchema]
-});
+// var reportSchema = new mongoose.Schema({
+//   createdAt:     { type: Date,   default: Date.now },
+//   current:       { type: String, required: true },
+//   challenges:    { type: String, required: true },
+//   outlook:       { type: String, required: true },
+//   trello_bid:    { type: String, required: true },
+//   user:          [userSchema], // ref to user
+//   comments:      [commentSchema]
+// });
 
 var commentSchema = new mongoose.Schema({
   user:       {
@@ -35,5 +35,6 @@ var commentSchema = new mongoose.Schema({
               },
   body:       { type: String, required: true },
   comments:   [this]
+})
 
-module.exports = Team;
+module.exports = mongoose.model('Team', teamSchema);;

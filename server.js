@@ -5,8 +5,11 @@ var logger       = require('morgan');
 var bodyParser   = require('body-parser');
 var debug        = require('debug')('app:http');
 var cookieParser = require('cookie-parser');
+var passport     = require('passport');
+var session      = require('express-session');
+var uuid         = require('uuid');
 
-// Dotenv 
+// Dotenv
 require('dotenv').load();
 
 
@@ -17,6 +20,15 @@ var env      = require('./config/environment'),
 
 // Instantiate a server application.
 var app = express();
+app.use(passport.initialize());
+app.use(passport.session());
+
+app.use(session({
+  genid: function(req) {
+    return uuid.v4() // use UUIDs for session IDs
+  },
+  secret: 'jazzycrypto'
+}));
 
 // Configure the application (and set it's title!).
 app.set('title', env.TITLE);

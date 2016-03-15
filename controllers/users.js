@@ -2,16 +2,12 @@
 var User = require("../models/users");
 
 module.exports = {
-  index: index,
-  show:  show
+  index: function (req, res, next) {
+    res.json({})
+  },
+  show: function (req, res, next) {
+
+  }
 };
 
-
-var index = function(req, res, next){
-
-};
-
-var show = function(req, res, next){
-
-};
 
