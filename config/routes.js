@@ -35,7 +35,7 @@ router.route('/auth/trello')
 
 router.route('/auth/trello/callback')
   .get(passport.authenticate('trello', {
-    successRedirect: '/',
+    successRedirect: '/dashboard.html',
     failureRedirect: '/failure'
   }));
 
