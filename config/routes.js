@@ -21,7 +21,7 @@ router.get('/teams',      teamsController.index);
 router.get('/teams/:id',  teamsController.show);
 router.post('/teams/new',  teamsController.create);
 
-// Team/report resources paths:
+// Report resources paths: ?? Maybe?
 // router.get('/teams/:id/report',  teamsController.rIndex);
 // router.get('/teams/:id/report/:id',   teamsController.rShow);
 
