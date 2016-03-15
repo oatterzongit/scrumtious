@@ -10,8 +10,9 @@ function login(req, res, next) {
 };
 
 function dash(req, res, next) {
-  res.render('pages/dash');
-  getUserBoards();
+  res.render('pages/dashboard');
+  // getUserBoards();
+  // res.redirect("")
 };
 
 

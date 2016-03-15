@@ -13,7 +13,7 @@ var teamsController = require('../controllers/teams');
 router.get('/', pagesController.login);
 
 // dash:
-router.get('/dash', pagesController.dash);
+router.get('/dashboard', pagesController.dash);
 
 // users resource paths:
 router.get('/users',     usersController.index);
@@ -35,7 +35,7 @@ router.route('/auth/trello')
 
 router.route('/auth/trello/callback')
   .get(passport.authenticate('trello', {
-    successRedirect: '/dashboard.html',
+    successRedirect: '/dashboard',
     failureRedirect: '/failure'
   }));
 
