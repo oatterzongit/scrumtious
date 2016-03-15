@@ -20,15 +20,6 @@ var env      = require('./config/environment'),
 
 // Instantiate a server application.
 var app = express();
-app.use(passport.initialize());
-app.use(passport.session());
-
-app.use(session({
-  genid: function(req) {
-    return uuid.v4() // use UUIDs for session IDs
-  },
-  secret: 'jazzycrypto'
-}));
 
 // Configure the application (and set it's title!).
 app.set('title', env.TITLE);
@@ -49,6 +40,14 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use(cookieParser('notsosecretnowareyou'));
 
+// Load session into req based on cookie.
+app.use(session({
+  genid: function(req) {
+    return uuid.v4() // use UUIDs for session IDs
+  },
+  secret: 'jazzycrypto'
+}));
+
 // Routing layers: favicon, static assets, dynamic routes, or 404…
 
 // Routes to static assets. Uncomment below if you have a favicon.
@@ -57,6 +56,10 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // Useful for debugging the state of requests.
 app.use(debugReq);
+
+// Have passort parse the session data.
+app.use(passport.initialize());
+app.use(passport.session());
 
 // Defines all of our "dynamic" routes.
 app.use('/', routes);
