@@ -13,7 +13,7 @@ var teamsController = require('../controllers/teams');
 router.get('/', pagesController.login);
 
 // dash:
-router.get('/dashboard', pagesController.dash);
+router.get('/dashboard', isLoggedIn, pagesController.dash);
 
 // users resource paths:
 router.get('/users',     usersController.index);
@@ -28,7 +28,6 @@ router.post('/teams/new',  teamsController.create);
 // router.get('/teams/:id/report',  teamsController.rIndex);
 // router.get('/teams/:id/report/:id',   teamsController.rShow);
 
-
 // Passport Route
 router.route('/auth/trello')
   .get(passport.authenticate('trello', {scope: ['read', 'write', 'account']}));
@@ -38,6 +37,16 @@ router.route('/auth/trello/callback')
     successRedirect: '/dashboard',
     failureRedirect: '/failure'
   }));
+
+function isLoggedIn(req, res, next) {
+  console.log(req.user);
+
+  if (req.isAuthenticated()) {
+    return next();
+  } else {
+    res.redirect('/auth/trello');
+  }
+}
 
 
 module.exports = router;

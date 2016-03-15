@@ -5,14 +5,14 @@ var TrelloStrategy = require("passport-trello").Strategy;
 
 module.exports = function(passport){
   passport.serializeUser(function(user, next) {
-    console.log("CURRENT USER IN SESSION!");
     debug("--> serializing user:\n", user, "\n\n");
     next(null, user._id);
   });
 
   passport.deserializeUser(function(id, next) {
     User.findById(id, function(err, user) {
-      console.log("--> deserializing user:\n", user, "\n\n");
+      console.log("USER AUTHENTICATED", user._id, user.fullName)
+      debug("--> deserializing user:\n", user, "\n\n");
       next(err, user);
     });
   });
@@ -31,10 +31,14 @@ module.exports = function(passport){
         expiration: "never"
       }
     }, function (req, token, tokenSecret, profile, next) {
-        console.log("\n\nSuccessful login!");
+        console.log("\nSuccessful login!", "\n");
         debug("  token:  ", token);
         debug("  secret: ", tokenSecret);
         debug("  profile:", profile);
+
+        // Store the retrieved OAuth token(s) with the current session.
+        req.session.trelloOauthToken  = token;
+        req.session.trelloOauthSecret = tokenSecret;
 
         // Check the database for a user with the logged in trello id.
         User
