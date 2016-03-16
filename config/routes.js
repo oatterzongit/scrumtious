@@ -15,6 +15,9 @@ router.get('/', pagesController.login);
 // dash:
 router.get('/dashboard', isLoggedIn, pagesController.dash);
 
+// team:
+router.get('/teampage', isLoggedIn, pagesController.teamPage)
+
 // users resource paths:
 router.get('/users',     usersController.index);
 router.get('/users/:id', usersController.show);
