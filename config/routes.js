@@ -15,17 +15,16 @@ router.get('/', pagesController.login);
 // dash:
 router.get('/dashboard', isLoggedIn, pagesController.dash);
 
-// team:
-router.get('/teampage', isLoggedIn, pagesController.teamPage)
+
 
 // users resource paths:
 router.get('/users',     usersController.index);
 router.get('/users/:id', usersController.show);
 
 // team resources path
-router.get('/teams',      teamsController.index);
-router.get('/teams/:id',  teamsController.show);
-router.post('/teams',  teamsController.create);
+router.get('/teams',      isLoggedIn, teamsController.index);
+router.get('/teams/:id',  isLoggedIn, teamsController.show);
+router.post('/teams/new',  isLoggedIn, teamsController.create);
 
 // Report resources paths: ?? Maybe?
 // router.get('/teams/:id/report',  teamsController.rIndex);

@@ -56,7 +56,7 @@ $('#dropdown1').delegate('li', 'click', function() {
 // INDEX members/<currentUser>/boards
 function getUsersBoards(token) {
   return Trello
-    .get("/members/me/boards?token=" + token)
+    .get("/members/me/boards?token=" + trelloToken)
     .then(
       function(boards) {
         console.log("Boards found: ", boards);
@@ -121,7 +121,7 @@ function getBoardMembers(boardId) {
 function createTeam(boardId, title) {
   $.ajax({
     method: "post",
-    url: "/teams",
+    url: "/teams/new",
     data: { trello_bid: boardId, title: title }
   }).then(function(res) {
     console.log(res);

@@ -1,10 +1,9 @@
-console.log("teamPage JS loaded!");
+console.log("teams JS loaded!");
 
 var uid,
     trelloId,
     trelloToken,
-    trelloSecret,
-    $boardList;
+    trelloSecret;
 
 $(document).ready(function() {
   $main = $("main");
@@ -13,8 +12,6 @@ $(document).ready(function() {
   trelloToken  = $main.data("trello-token");
   trelloSecret = $main.data("trello-secret");
 
-  $boardList = $("#board-list");
-  $boardDropdown = $("#boards-dropdown");
 
   if (!trelloToken) {
     console.log("Current user's Trello token unavailable!");
