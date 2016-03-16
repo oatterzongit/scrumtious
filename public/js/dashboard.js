@@ -1,4 +1,4 @@
-console.log('JS loaded!');
+console.log('Dashboard.JS loaded!');
 
 var uid,
     trelloId,

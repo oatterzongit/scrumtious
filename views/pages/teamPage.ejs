@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <%- include('../partials/head') %>
+</head>
+<body>
+  <%- include('../partials/header', {subHeading: 'Team Standup'}) %>
+
+  <main data-uid="<%= user._id %>" data-trello-id="<%= user.trelloId %>" data-trello-token="<%= token %>" data-trello-secret="<%= secret %>">
+    <p> TEAM STANDUP GOES HERE</p>
+
+  <%- include('../partials/scripts') %>
+  <script src='/js/teamPage.js'></script>
+</body>
+</html>
