@@ -20,6 +20,36 @@ function show(req, res, next) {
 
 
 // Teams CREATE page rendering
-function create(req, res, next) {
 
+
+function create(req, res, next) {
+  console.log(req.body);
+  console.log(req.user);
+
+  Team.findOne({trello_bid: req.body.trello_bid})
+  .then(function(team){
+    if(team){
+      // then go to next step
+      return team;
+    } else {
+      // create new team
+      // then go to next step
+      return Team.create({
+        creator:    req.user,
+        trello_bid: req.body.trello_bid,
+        title:      req.body.title
+      });
+    }
+  })
+  .then(function(team) {
+    // from boardId grab users from trello API??
+    // grab unique user id from users??
+    // for each user get fullName, ID, email address and add to team??
+
+    // return TEAM object
+    res.json({
+      msg:  "Team found or created!",
+      team: team
+    })
+  });
 };
