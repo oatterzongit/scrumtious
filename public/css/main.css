@@ -8,7 +8,14 @@ body {
 body {
   font-size: 14px;
   width: 100%;
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
 }
+
+main {
+   flex: 1 0 auto;
+ }
 
 a { color: #00B7FF; }
 
@@ -17,6 +24,12 @@ a { color: #00B7FF; }
 .log-in {margin-right: 40px;}
 
 .nav-wrapper {background: #00BCD4;}
+
+.secondary-wrapper {background: #0097A7;}
+
+
+
+.my-feed {margin-left: 40px;}
 
 .header {text-align: center;}
 
@@ -66,11 +79,11 @@ a { color: #00B7FF; }
    font-family: Open Sans;
    color: #727272;
    font-size: 20px;
-   display: inline;
-   margin-left: 80px;
-   margin-right: 80px;
-   width: fit-content;
+   text-align: center;
+
 }
+
+
 
 .header {
    color: #FF5722;
@@ -81,7 +94,7 @@ img {
   height: 1280px;
 }
 
-.img {width: fit-content; margin: 0px auto;}
+
 
 
 
