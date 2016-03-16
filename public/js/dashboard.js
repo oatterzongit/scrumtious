@@ -37,8 +37,10 @@ $('.dropdown-button').dropdown(
 /// clickable drop down... so close.... thanks Karen!!!
 $('#dropdown1').delegate('li', 'click', function() {
     var thisId = $(this).attr('id');
+    var thisText = $(this).text();
     console.log(thisId);
-    getBoardMembers(trelloToken, thisId);
+    // getBoardMembers(thisId)
+    createTeam(thisId, thisText);
 });
 
   // Get the user's boards!
@@ -54,7 +56,7 @@ $('#dropdown1').delegate('li', 'click', function() {
 // INDEX members/<currentUser>/boards
 function getUsersBoards(token) {
   return Trello
-    .get("/members/me/boards?token=" + token)
+    .get("/members/me/boards?token=" + trelloToken)
     .then(
       function(boards) {
         console.log("Boards found: ", boards);
@@ -102,9 +104,9 @@ function loadBoardsAsOptions(boards) {
 
 
 
-function getBoardMembers(token, board) {
+function getBoardMembers(boardId) {
   return Trello
-    .get("/boards/" + board + "/memberships?token=" + token)
+    .get("/boards/" + boardId + "/memberships?token=" + trelloToken)
     .then(
       function(members) {
         console.log("members found: ", members);
@@ -116,6 +118,14 @@ function getBoardMembers(token, board) {
     );
 };
 
-
+function createTeam(boardId, title) {
+  $.ajax({
+    method: "post",
+    url: "/teams/new",
+    data: { trello_bid: boardId, title: title }
+  }).then(function(res) {
+    console.log(res);
+  });
+}
 
 
