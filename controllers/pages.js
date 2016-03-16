@@ -1,12 +1,11 @@
 
 module.exports = {
-  login: login,
-  dash: dash,
-  teamPage: teamPage
+  welcome: welcome,
+  dash: dash
 };
 
 
-function login(req, res, next) {
+function welcome(req, res, next) {
   res.render('pages/welcome');
 };
 
@@ -17,13 +16,3 @@ function dash(req, res, next) {
     secret: req.session.trelloOauthSecret
   });
 };
-
-function teamPage(req, res, next) {
-  res.render('pages/teampage', {
-    user:   req.user,
-    token:  req.session.trelloOauthToken,
-    secret: req.session.trelloOauthSecret
-  });
-};
-
-

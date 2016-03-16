@@ -2,13 +2,26 @@
 <!--   <h1><%= title %></h1>
   <h2><%= subHeading %></h2>
  -->
-
+<!--
 <nav>
   <div class="nav-wrapper">
     <a href="#" class="brand-logo">SCRUM*TIOUS</a>
     <ul id="nav-mobile" class="right hide-on-med-and-down">
-      <a>Welcome</a>
-      <li><a href="" class="log-out">Log Out</a></li>
+      <span>Welcome: currentUser</span> &nbsp;
+      <li><a href="" class="log-out">Logout</a></li>
+    </ul>
+  </div>
+</nav> -->
+
+<nav>
+  <div class="nav-wrapper">
+    <a href="#" class="brand-logo">SCRUM*TIOUS</a>
+    <a href="#" data-activates="mobile-nav" class="button-collapse"><i class="material-icons">menu</i></a>
+    <ul class="right hide-on-med-and-down">
+      <li><a href="/auth/trello">Logout</a></li>
+    </ul>
+    <ul class="side-nav" id="mobile-nav">
+      <li><a href="/auth/trello">Logout</a></li>
     </ul>
   </div>
 </nav>
