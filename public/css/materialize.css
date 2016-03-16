@@ -2810,15 +2810,12 @@ video.responsive-video {
 
 .parallax img {
   display: inline-block;
-  position: absolute;
-  left: 50%;
+  position: fixed;
   bottom: 0;
-  min-width: 100%;
+  min-width: fit-content;
   min-height: 100%;
   -webkit-transform: translate3d(0, 0, 0);
   transform: translate3d(0, 0, 0);
-  -webkit-transform: translateX(-50%);
-          transform: translateX(-50%);
 }
 
 .pin-top, .pin-bottom {
