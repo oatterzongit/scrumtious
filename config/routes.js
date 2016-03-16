@@ -24,7 +24,7 @@ router.get('/users/:id', usersController.show);
 // team resources path
 router.get('/teams',      isLoggedIn, teamsController.index);
 router.get('/teams/:id',  isLoggedIn, teamsController.show);
-router.post('/teams/new',  isLoggedIn, teamsController.create);
+router.post('/teams/new', teamsController.create);
 
 // Report resources paths: ?? Maybe?
 // router.get('/teams/:id/report',  teamsController.rIndex);

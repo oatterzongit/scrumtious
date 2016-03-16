@@ -21,7 +21,6 @@ function index(req, res, next) {
 // Teams SHOW page rendering
 function show(req, res, next) {
   res.render('pages/teams/:id', {
-    team:   team,
     user:   req.user,
     token:  req.session.trelloOauthToken,
     secret: req.session.trelloOauthSecret
