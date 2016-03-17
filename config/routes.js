@@ -25,26 +25,23 @@ router.get('/users',     usersController.index);
 router.get('/users/:id', usersController.show);
 
 // API resources path
-router.get('/api/teams',      apiController.index);
+router.get('/api/teams',        apiController.index);
 router.get('/api/teams/:b_id',  apiController.show);
-router.post('/api/teams', apiController.create);
+router.post('/api/teams',       apiController.create);
 
 
 // Passport Route
-router.route('/auth/trello')
-  .get(passport.authenticate('trello', {scope: ['read', 'write', 'account']}));
+router.get('/auth/trello', passport.authenticate('trello', {scope: ['read', 'write', 'account']}));
 
-router.route('/auth/trello/callback')
-  .get(passport.authenticate('trello', {
-    successRedirect: '/dashboard',
-    failureRedirect: '/failure'
-  }));
+router.get('/auth/trello/callback', passport.authenticate('trello', {
+  successRedirect: '/dashboard',
+  failureRedirect: '/failure'
+}));
 
-  router.route('/logout')
-    .get(function(req, res){
-      req.logout();
-      res.redirect('/');
-    });
+router.get('/logout', function(req, res){
+  req.logout();
+  res.redirect('/');
+});
 
 function isLoggedIn(req, res, next) {
   console.log(req.user);
