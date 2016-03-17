@@ -149,6 +149,12 @@ function clearCards() {
 
 function addTeam(team) {
   var $team = $(renderCard(team));
+
+  $team.find(".remove-card").on("click", function(evt) {
+    var teamId = team._id;
+    console.log("Remove team:", teamId);
+  });
+
   $('#teams-list').append($team);
 }
 
@@ -166,11 +172,11 @@ $(function() {
         </div>
         <div class="card-action">
           <a class="waves-effect waves-light btn" href="/teams/<%= _id %>">Visit Team</a>
-          <a class="btn-floating btn-small waves-effect waves-light red"><i class="material-icons">remove</i></a>
+          <a class="btn-floating btn-small waves-effect waves-light red remove-card"><i class="material-icons">remove</i></a>
         </div>
       </div>
     </div>
-    `);
+  `);
 
     getTeams();
 
