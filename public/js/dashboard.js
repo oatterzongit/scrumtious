@@ -131,7 +131,7 @@ function createTeam(boardId, title) {
 var renderCard;
 
 function getTeams() {
-  var teams = $.get('/api')
+  var teams = $.get('/api/teams')
   .then(function(teams) {
     clearCards();
     teams.forEach(function(team) {
@@ -165,7 +165,7 @@ $(function() {
           <p><%= creator %></p>
         </div>
         <div class="card-action">
-          <a href="/teams1">Team Dashboard</a>
+          <a href="/teams/<%= _id %>">Team Dashboard</a>
         </div>
       </div>
     </div>

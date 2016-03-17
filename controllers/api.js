@@ -7,7 +7,10 @@ module.exports = {
 }
 
 function show(req, res, next) {
-
+  Team.find({trello_bid: req.params.b_id}, function(err, team) {
+    if (err) res.render(err);
+    res.json(team[0]);
+  })
 };
 
 function index(req, res) {
