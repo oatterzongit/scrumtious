@@ -8,12 +8,17 @@ var express = require('express'),
 var pagesController = require('../controllers/pages');
 var usersController = require('../controllers/users');
 var teamsController = require('../controllers/teams');
+var teams1Controller = require('../controllers/teams1');
 
 // root path:
 router.get('/', pagesController.welcome);
 
 // Pages (non-models) Resource paths
 router.get('/dashboard', isLoggedIn, pagesController.dash);
+
+// Teams resource patsh
+router.get('/teams1', isLoggedIn, teams1Controller.index);
+
 
 
 
