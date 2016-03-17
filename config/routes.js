@@ -7,33 +7,27 @@ var express = require('express'),
 // Require controllers.
 var pagesController = require('../controllers/pages');
 var usersController = require('../controllers/users');
+var apiController   = require('../controllers/api');
 var teamsController = require('../controllers/teams');
-var teams1Controller = require('../controllers/teams1');
 
 // root path:
 router.get('/', pagesController.welcome);
 
-// Pages (non-models) Resource paths
+// Single Pages Resource paths:
 router.get('/dashboard', isLoggedIn, pagesController.dash);
 
-// Teams resource patsh
-router.get('/teams1', isLoggedIn, teams1Controller.index);
-
-
-
+// Teams resource paths:
+router.get('/teams', isLoggedIn, teamsController.index);
 
 // users resource paths:
 router.get('/users',     usersController.index);
 router.get('/users/:id', usersController.show);
 
 // API resources path
-router.get('/teams',      teamsController.index);
-router.get('/teams/:id',  teamsController.show);
-router.post('/teams/new', teamsController.create);
+router.get('/api',      apiController.index);
+router.get('/api/:id',  apiController.show);
+router.post('/api/new', apiController.create);
 
-// Report resources paths: ?? Maybe?
-// router.get('/teams/:id/report',  teamsController.rIndex);
-// router.get('/teams/:id/report/:id',   teamsController.rShow);
 
 // Passport Route
 router.route('/auth/trello')
