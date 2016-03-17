@@ -40,6 +40,12 @@ router.route('/auth/trello/callback')
     failureRedirect: '/failure'
   }));
 
+  router.route('/logout')
+    .get(function(req, res){
+      req.logout();
+      res.redirect('/');
+    });
+
 function isLoggedIn(req, res, next) {
   console.log(req.user);
 

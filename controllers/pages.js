@@ -6,7 +6,7 @@ module.exports = {
 
 
 function welcome(req, res, next) {
-  res.render('pages/welcome');
+  res.render('pages/welcome', {user: req.user});
 };
 
 function dash(req, res, next) {
