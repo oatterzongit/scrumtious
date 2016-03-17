@@ -4,17 +4,13 @@
   <$- include('../partials/head') $>
 </head>
 <body>
-  <$- include('../partials/header', {subHeading: 'Team Standup'}) $>
+  <$- include('../partials/header', {subHeading: 'Team Standup', user: user}) $>
 
   <main data-uid="<$= user.trello_bid $>" data-trello-id="<$= user.trelloId $>" data-trello-token="<$= token $>" data-trello-secret="<$= secret $>">
-
     <h1 id="<$= team.trello_bid $>"><$= team.title $></h1>
-
-  <section id="lists-menu" class="lists-menu">
-  </section>
+  </main>
 
   <$- include('../partials/reportsform') $>
-
   <$- include('../partials/scripts') $>
 
   <script src='/js/teams.js'></script>
