@@ -156,7 +156,7 @@ $(function() {
 
   renderCard = _.template(`
     <div class="col s3 m3">
-      <div class="card small hoverable">
+      <div class="team-card card small hoverable">
         <div class="card-image">
           <img id="team-card-image"src="images/team.png">
           <span id="teamcard-title" class="card-title center-align"><%= title %></span>
@@ -165,7 +165,8 @@ $(function() {
           <p><%= creator %></p>
         </div>
         <div class="card-action">
-          <a href="/teams/<%= _id %>">Team Dashboard</a>
+          <a class="waves-effect waves-light btn" href="/teams/<%= _id %>">Visit Team</a>
+          <a class="btn-floating btn-small waves-effect waves-light red"><i class="material-icons">remove</i></a>
         </div>
       </div>
     </div>
