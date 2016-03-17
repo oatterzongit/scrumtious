@@ -3,7 +3,8 @@ console.log("teams JS loaded!");
 var uid,
     trelloId,
     trelloToken,
-    trelloSecret;
+    trelloSecret,
+    $main;
 
 $(document).ready(function() {
   $main = $("main");
@@ -26,54 +27,45 @@ $(document).ready(function() {
     return;
   }
 
+  grabLists("56de37756835a1eacef9366b")
+    .then(function(lists) { console.log("Grabbed lists:", lists); return lists; })
+    .then(loadLists);
 
-  grabCards("56df85611edca153afed8a82")
-  .then(console.log("sldkf"))
-  .then(loadCardsAsOptions);
-
-    grabList("56de37756835a1eacef9366b")
-    .then(console.log("sldkf"))
-    .then(loadListsAsOptions);
+  getTeamMembers("56de37756835a1eacef9366b", trelloToken)
+  .then(generateTeam);
 
 
-    getTeamMembers("56de37756835a1eacef9366b", trelloToken)
-    .then(generateTeam);
+    // Drop Down menu action
+  $('.dropdown-button').dropdown(
+    {
+      inDuration: 300,
+      outDuration: 225,
+      constrain_width: false, // Does not change width of dropdown to that of the activator
+      hover: true, // Activate on hover
+      gutter: 0, // Spacing from edge
+      belowOrigin: true, // Displays dropdown below the button
+      alignment: 'left' // Displays dropdown with edge aligned to the left of button
+    }
+  );
+
+  /// clickable drop down... so close.... thanks Karen!!!
+  $('#listdropdown1').delegate('li', 'click', function() {
+      var thisListId = $(this).attr('id');
+      var thisListText = $(this).text();
+      // console.log(thisListId);
+      // getBoardMembers(thisId)
+      console.log(thisListId, thisListText);
+  });
 
 
-      // Drop Down menu action
-    $('.dropdown-button').dropdown(
-      {
-        inDuration: 300,
-        outDuration: 225,
-        constrain_width: false, // Does not change width of dropdown to that of the activator
-        hover: true, // Activate on hover
-        gutter: 0, // Spacing from edge
-        belowOrigin: true, // Displays dropdown below the button
-        alignment: 'left' // Displays dropdown with edge aligned to the left of button
-      }
-    );
-
-    /// clickable drop down... so close.... thanks Karen!!!
-    $('#listdropdown1').delegate('li', 'click', function() {
-        var thisListId = $(this).attr('id');
-        var thisListText = $(this).text();
-        // console.log(thisListId);
-        // getBoardMembers(thisId)
-        console.log(thisListId, thisListText);
-    });
-
-
-    /// clickable drop down... so close.... thanks Karen!!!
-    $('#carddropdown1').delegate('li', 'click', function() {
-        var thisCardId = $(this).attr('id');
-        var thisCardText = $(this).text();
-        // console.log(thisCardId);
-        // getBoardMembers(thisId)
-        console.log(thisCardId, thisCardText);
-    });
-
-
-
+  /// clickable drop down... so close.... thanks Karen!!!
+  $('#carddropdown1').delegate('li', 'click', function() {
+      var thisCardId = $(this).attr('id');
+      var thisCardText = $(this).text();
+      // console.log(thisCardId);
+      // getBoardMembers(thisId)
+      console.log(thisCardId, thisCardText);
+  });
 });
 
 function getTeamMembers(teamid) {
@@ -108,7 +100,7 @@ function generateTeam(members) {
   })
 };
 
-function grabList(boardid) {
+function grabLists(boardid) {
   return Trello
   .get("/boards/" + boardid + "/lists?token=" + trelloToken)
   .then(
@@ -122,48 +114,86 @@ function grabList(boardid) {
   );
 }
 
-function loadListsAsOptions(lists) {
-  lists.forEach(function(list){
-    var listTemplate = `
-      <li class="center-align bold-text list-id" id="<%= list.id %>"><%= list.name %></li>
-      <li class="divider"></li>
-    `;
+function loadLists(lists) {
+  var listsTemplate = `
+    <ul id="list-menu-content" class="collapsible" data-collapsible="expandable">
+      <% lists.forEach(function(list) { %>
+        <li class="bold-text list-id" id="<%= list.id %>">
+          <div class="collapsible-header"><%= list.name %><i class="material-icons">arrow_drop_down</i></div>
+          <div class="collapsible-body">
+            <%= renderCards({cards: list.cards}) %>
+          </div>
+        </li>
+        <li class="divider"></li>
+      <% }); %>
+    </ul>
+  `;
+  var renderLists = _.template(listsTemplate);
 
-    var renderList = _.template(listTemplate);
-    var listHTML   = renderList({list: list});
+  var cardTemplate = `
+    <ul class="cards">
+      <% cards.forEach(function(card) { %>
+        <li class="card-id" id="<%= card.id %>">
+          <%= card.name %>
+        </li>
+      <% }); %>
+    </ul>
+  `;
+  var renderCards = _.template(cardTemplate);
 
-    $listDropdown.append(listHTML);
+  grabCards(lists).then(function(lists) {
+    console.log("Received the complete array of lists, captain!", lists);
+
+    var listsHTML = renderLists({lists: lists, renderCards: renderCards});
+    $("#lists-menu").append(listsHTML);
+
+    $('.collapsible').collapsible({accordion : false});
+
   });
 }
 
-function grabCards(listid) {
-  return Trello
-  .get("/lists/" + listid + "/cards?token=" + trelloToken)
-  .then(
-    function(cards) {
-      console.log("Cards found: ", cards);
-      return cards;
-    },
-    function(err) {
-      console.log("Failure: ", err);
-    }
-  );
-}
+function grabCards(lists) {
 
-function loadCardsAsOptions(cards) {
-  cards.forEach(function(card){
-    var cardTemplate = `
-      <li class="center-align bold-text card-id" id="<%= card.id %>"><%= card.name %></li>
-      <li class="divider"></li>
-    `;
+  // newLists will be the repository for the old lists, with each
+  // lists cards attached to it...
+  var newLists = [],
+  // promises will be the array of promises that fire when the
+  // cards return, and then are saved in the newList...
+      promises = [];
 
-    var renderCard = _.template(cardTemplate);
-    var cardHTML   = renderCard({card: card});
+  // frustratingly, lists is a list of lists, ie an array of the boards'
+  // lists.
+  lists.forEach(function(list) {
+    // console.log("List: ", list);
 
-    $cardDropdown.append(cardHTML);
+    // store the promise for the newList having been updated here...
+    var currentPromise =
+
+    // send a request to Trello for the cards in this list,
+    // then add the cards to the list object, and push the new list
+    // object into the newLists array
+    Trello
+      .get("/lists/" + list.id + "/cards?token=" + trelloToken)
+      .then(
+        function(cards) {
+          console.log("Cards found: ", cards, list.id);
+          list.cards = cards;
+          newLists.push(list);
+        },
+        function(err) {
+          console.log("Failure: ", err, list.id);
+        }
+      );
+
+    // put this promise in your pocket! (the array of promises)
+    promises.push(currentPromise);
+  });
+
+  // now, return a promise that will fire once all the promises
+  // in the promises array are finished, and have it return the
+  // newList of lists...
+  return Promise.all(promises).then(function() {
+    console.log("All cards received, sir!");
+    return newLists;
   });
 }
-
-
-
-
