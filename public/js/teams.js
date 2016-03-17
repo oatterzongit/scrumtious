@@ -16,6 +16,8 @@ $(document).ready(function() {
   trelloSecret = $main.data("trello-secret");
   console.log(trelloToken);
 
+  $(".modal-trigger").leanModal();
+
   $membersList = $('#members-list');
   $listList = $("#list-list");
   $listDropdown = $("#listdropdown1");
@@ -51,7 +53,7 @@ $(document).ready(function() {
   );
 
   /// clickable drop down... so close.... thanks Karen!!!
-  $('#listdropdown1').delegate('li', 'click', function() {
+  $('#lists-menu').delegate('li.card-id', 'click', function() {
       var thisListId = $(this).attr('id');
       var thisListText = $(this).text();
       // console.log(thisListId);
@@ -69,6 +71,10 @@ $(document).ready(function() {
       console.log(thisCardId, thisCardText);
   });
 });
+
+
+
+
 
 function getTeamMembers(teamid) {
   return Trello
