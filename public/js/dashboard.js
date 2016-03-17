@@ -54,7 +54,7 @@ $('#dropdown1').delegate('li', 'click', function() {
  */
 
 // INDEX members/<currentUser>/boards
-function getUsersBoards(token) {
+function getUsersBoards(trelloToken) {
   return Trello
     .get("/members/me/boards?token=" + trelloToken)
     .then(
