@@ -15,7 +15,10 @@
 
   <body>
   <main data-uid="<%= user._id %>" data-trello-id="<%= user.trelloId %>" data-trello-token="<%= token %>" data-trello-secret="<%= secret %>">
-    <p> You've been dashed, <em>sick burn</em>!</p>
+    <div id="members-list">
+
+      <!-- insertion point for team members -->
+    </div>
 
     <form>
       <label for="boards">My Boards</label>
@@ -40,6 +43,7 @@
 
   <%- include('../partials/scripts') %>
   <script src='/js/dashboard.js'></script>
+  <script src='/js/teams.js'></script>
 </body>
 
 <%- include('../partials/footer') %>
