@@ -131,7 +131,7 @@ function createTeam(boardId, title) {
 var renderCard;
 
 function getTeams() {
-  var teams = $.get('/teams')
+  var teams = $.get('/api')
   .then(function(teams) {
     clearCards();
     teams.forEach(function(team) {
