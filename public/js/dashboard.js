@@ -123,9 +123,9 @@ function createTeam(boardId, title) {
     method: "post",
     url: "/teams/new",
     data: { trello_bid: boardId, title: title }
-  }).then(function(res) {
-    console.log(res);
-  });
+  }).then(loadTeamsIndex)
 }
 
-
+function loadTeamsIndex(team) {
+  $.get()
+}
