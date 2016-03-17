@@ -56,20 +56,12 @@ $(document).ready(function() {
   $('#lists-menu').delegate('li.card-id', 'click', function() {
       var thisListId = $(this).attr('id');
       var thisListText = $(this).text();
-      // console.log(thisListId);
-      // getBoardMembers(thisId)
+      var thisArr = [];
       console.log(thisListId, thisListText);
+      thisArr.push(thisListId, thisListText);
+      return thisArr;
   });
 
-
-  /// clickable drop down... so close.... thanks Karen!!!
-  $('#carddropdown1').delegate('li', 'click', function() {
-      var thisCardId = $(this).attr('id');
-      var thisCardText = $(this).text();
-      // console.log(thisCardId);
-      // getBoardMembers(thisId)
-      console.log(thisCardId, thisCardText);
-  });
 });
 
 
@@ -204,4 +196,13 @@ function grabCards(lists) {
     console.log("All cards received, sir!");
     return newLists;
   });
+}
+
+
+function createReport(memberId, current, currentId, challenges, outlook, boardId) {
+  $.ajax({
+    method: "post",
+    url: "/teams/report/new",
+    data: { member: memberId, current: current, current_id: currentId, challenges: challenges, outlook: outlook, trello_bid: boardId}
+  })
 }

@@ -6,17 +6,15 @@
 <body>
   <$- include('../partials/header', {subHeading: 'Team Standup'}) $>
 
+
   <main data-uid="<$= user.trello_bid $>" data-trello-id="<$= user.trelloId $>" data-trello-token="<$= token $>" data-trello-secret="<$= secret $>">
 
-    <h1 id="<$= team.trello_bid $>"><$= team.title $></h1>
-
-  <section id="lists-menu" class="lists-menu">
-  </section>
-
-
+  <h1 id="<$= team.trello_bid $>"><$= team.title $></h1>
+  <$- include('../partials/reportsform') $>
+</main>
 
   <$- include('../partials/scripts') $>
-  <$- include('../partials/reportsform') $>
+
   <script src='/js/teams.js'></script>
 </body>
 </html>
