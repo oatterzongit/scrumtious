@@ -1,13 +1,18 @@
 var Team = require("../models/teams");
 
 module.exports = {
-  index:  index
+  show: show
 }
 
-function index(req, res, next) {
-  res.render('pages/teams', {
-    user:   req.user,
-    token:  req.session.trelloOauthToken,
-    secret: req.session.trelloOauthSecret
-  });
-};
+
+function show(req, res, next) {
+  Team.findById(req.params.id, function(err, team) {
+    if (err) res.send(err);
+    res.render('pages/teams', {
+      user:   req.user,
+      token:  req.session.trelloOauthToken,
+      secret: req.session.trelloOauthSecret,
+      team: team
+    })
+  })
+}

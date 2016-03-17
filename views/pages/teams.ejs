@@ -1,17 +1,19 @@
  <!DOCTYPE html>
 <html>
 <head>
-  <%- include('../partials/head') %>
+  <$- include('../partials/head') $>
 </head>
 <body>
-  <%- include('../partials/header', {subHeading: 'Team Standup'}) %>
+  <$- include('../partials/header', {subHeading: 'Team Standup'}) $>
 
-  <main data-uid="<%= user._id %>" data-trello-id="<%= user.trelloId %>" data-trello-token="<%= token %>" data-trello-secret="<%= secret %>">
+  <main data-uid="<$= user.trello_bid $>" data-trello-id="<$= user.trelloId $>" data-trello-token="<$= token $>" data-trello-secret="<$= secret $>">
+
+    <h1 id="<$= team.trello_bid $>"><$= team.title $></h1>
 
     <section id="lists-menu" class="lists-menu">
     </section>
 
-  <%- include('../partials/scripts') %>
+  <$- include('../partials/scripts') $>
 
   <script src='/js/teams.js'></script>
 </body>

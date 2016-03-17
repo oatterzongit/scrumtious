@@ -1,23 +1,15 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <%- include('../partials/head') %>
+  <$- include('../partials/head') $>
 </head>
 
-  <%- include('../partials/header', {subHeading: 'Dashboard'}) %>
+  <$- include('../partials/header', {subHeading: 'Dashboard'}) $>
 
-  <nav class="secondary-wrapper">
-    <ul id="nav-mobile" class="left buffer">
-      <li><a href="/dashboard" class="my-feed">HOME</a></li>
-      <li><a href="/teams" class="my-teams">MY TEAMS</a></li>
-    </ul>
-  </nav>
 
   <body>
-  <main data-uid="<%= user._id %>" data-trello-id="<%= user.trelloId %>" data-trello-token="<%= token %>" data-trello-secret="<%= secret %>">
-
-    <!-- Teams list -->
-
+  <main data-uid="<$= user._id $>" data-trello-id="<$= user.trelloId $>" data-trello-token="<$= token $>" data-trello-secret="<$= secret $>">
+    <h4 class="">My Current Teams</h4>
     <div id="teams-list" class="row">
       <!-- teams template here -->
     </div>
@@ -34,9 +26,7 @@
     </form>
 
     <ul class="drop-down" id="board-list">
-      Here are your boards:
      <!-- template goes here for each board -->
-    </ul>
 
 
     <!-- Dropdown Trigger -->
@@ -49,11 +39,11 @@
 
   </main>
 
-  <%- include('../partials/scripts') %>
+  <$- include('../partials/scripts') $>
   <script src='/js/dashboard.js'></script>
   <script src='/js/teams.js'></script>
 </body>
 
-<%- include('../partials/footer') %>
+<$- include('../partials/footer') $>
 
 </html>

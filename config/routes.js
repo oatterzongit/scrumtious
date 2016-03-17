@@ -17,16 +17,17 @@ router.get('/', pagesController.welcome);
 router.get('/dashboard', isLoggedIn, pagesController.dash);
 
 // Teams resource paths:
-router.get('/teams', isLoggedIn, teamsController.index);
+// router.get('/teams', isLoggedIn, teamsController.index);
+router.get('/teams/:id', isLoggedIn, teamsController.show);
 
 // users resource paths:
 router.get('/users',     usersController.index);
 router.get('/users/:id', usersController.show);
 
 // API resources path
-router.get('/api',      apiController.index);
-router.get('/api/:id',  apiController.show);
-router.post('/api/new', apiController.create);
+router.get('/api/teams',      apiController.index);
+router.get('/api/teams/:b_id',  apiController.show);
+router.post('/api/teams', apiController.create);
 
 
 // Passport Route

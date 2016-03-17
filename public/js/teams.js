@@ -4,9 +4,11 @@ var uid,
     trelloId,
     trelloToken,
     trelloSecret,
-    $main;
+    $main,
+    currentBid;
 
 $(document).ready(function() {
+  currentBid = $('h1').attr('id')
   $main = $("main");
   uid          = $main.data("uid");
   trelloId     = $main.data("trello-id");
@@ -27,11 +29,11 @@ $(document).ready(function() {
     return;
   }
 
-  grabLists("56de37756835a1eacef9366b")
+  grabLists(currentBid)
     .then(function(lists) { console.log("Grabbed lists:", lists); return lists; })
     .then(loadLists);
 
-  getTeamMembers("56de37756835a1eacef9366b", trelloToken)
+  getTeamMembers(currentBid, trelloToken)
   .then(generateTeam);
 
 
