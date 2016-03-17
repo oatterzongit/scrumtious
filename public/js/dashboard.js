@@ -123,9 +123,54 @@ function createTeam(boardId, title) {
     method: "post",
     url: "/teams/new",
     data: { trello_bid: boardId, title: title }
-  }).then(loadTeamsIndex)
+  }).then(getTeams)
 }
 
-function loadTeamsIndex(team) {
-  $.get()
+// Display Team Cards
+
+var renderCard;
+
+function getTeams() {
+  var teams = $.get('/teams')
+  .then(function(teams) {
+    clearCards();
+    teams.forEach(function(team) {
+      addTeam(team);
+    });
+  }, function(err) {
+    console.log(err);
+  });
 }
+
+function clearCards() {
+  var $teamsList = $('#teams-list');
+  $teamsList.html('');
+}
+
+function addTeam(team) {
+  var $team = $(renderCard(team));
+  $('#teams-list').append($team);
+}
+
+$(function() {
+
+  renderCard = _.template(`
+    <div class="col s3 m3">
+      <div class="card small hoverable">
+        <div class="card-image">
+          <img id="team-card-image"src="images/team.png">
+          <span id="teamcard-title" class="card-title"><%= title %></span>
+        </div>
+        <div class="card-content">
+          <p><%= creator %></p>
+        </div>
+        <div class="card-action">
+          <a href="pages/teams">Team Dashboard</a>
+        </div>
+      </div>
+    </div>
+    `);
+
+    getTeams();
+
+})

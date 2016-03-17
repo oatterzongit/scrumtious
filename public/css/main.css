@@ -89,12 +89,18 @@ a { color: #00B7FF; }
    color: #FF5722;
 }
 
-img {
+#main-parallax-img {
   width: 2120px;
   height: 1280px;
 }
 
+#team-card-image {
+  width: 100%
+}
 
+#teamcard-title {
+  background: rgba(3, 169, 244, .5);
+}
 
 
 
