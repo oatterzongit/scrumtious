@@ -13,6 +13,7 @@ var commentSchema = new mongoose.Schema({
 var reportSchema = new mongoose.Schema({
   createdAt:     { type: Date,   default: Date.now },
   current:       { type: String, required: true },
+  current_id:    { type: String, required: false },
   challenges:    { type: String, required: true },
   outlook:       { type: String, required: true },
   trello_bid:    { type: String, required: true },

@@ -159,13 +159,13 @@ $(function() {
       <div class="card small hoverable">
         <div class="card-image">
           <img id="team-card-image"src="images/team.png">
-          <span id="teamcard-title" class="card-title"><%= title %></span>
+          <span id="teamcard-title" class="card-title center-align"><%= title %></span>
         </div>
         <div class="card-content">
           <p><%= creator %></p>
         </div>
         <div class="card-action">
-          <a href="pages/teams">Team Dashboard</a>
+          <a href="/teams1">Team Dashboard</a>
         </div>
       </div>
     </div>
