@@ -34,5 +34,4 @@ var teamSchema = new mongoose.Schema({
   reports:       [reportSchema]
 });
 
-module.exports = mongoose.model('Team', teamSchema),
-                 mongoose.model('Team', teamSchema);
+module.exports = mongoose.model('Team', teamSchema);

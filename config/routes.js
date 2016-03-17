@@ -21,9 +21,9 @@ router.get('/dashboard', isLoggedIn, pagesController.dash);
 router.get('/users',     usersController.index);
 router.get('/users/:id', usersController.show);
 
-// team resources path
-router.get('/teams',      isLoggedIn, teamsController.index);
-router.get('/teams/:id',  isLoggedIn, teamsController.show);
+// API resources path
+router.get('/teams',      teamsController.index);
+router.get('/teams/:id',  teamsController.show);
 router.post('/teams/new', teamsController.create);
 
 // Report resources paths: ?? Maybe?

@@ -8,14 +8,15 @@ module.exports = {
 
 
 // Teams INDEX page rendering views
-function index(req, res, next) {
-// find oauth first
-  res.render('pages/teams', {
-    user:   req.user,
-    token:  req.session.trelloOauthToken,
-    secret: req.session.trelloOauthSecret
-  })
-};
+// function index(req, res, next) {
+//   console.log(req.body);
+//   console.log(req.user);
+//   res.render('pages/dashboard', {
+//     user:   req.user,
+//     token:  req.session.trelloOauthToken,
+//     secret: req.session.trelloOauthSecret
+//   })
+// };
 
 
 // Teams SHOW page rendering
@@ -25,9 +26,21 @@ function show(req, res, next) {
     token:  req.session.trelloOauthToken,
     secret: req.session.trelloOauthSecret
   })
-
-
 };
+
+function index(req, res) {
+  console.log(req.body);
+  console.log(req.user);
+
+  Team.find({}, function(err, teams) {
+    if (err) {
+      res.send(err);
+    }
+
+    // return the fishes
+    res.json(teams);
+  });
+}
 
 
 // Teams CREATE page rendering
