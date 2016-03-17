@@ -17,11 +17,12 @@
   <div class="nav-wrapper">
     <a href="#" class="brand-logo">SCRUM*TIOUS</a>
     <a href="#" data-activates="mobile-nav" class="button-collapse"><i class="material-icons">menu</i></a>
-    <ul class="right hide-on-med-and-down">
-      <li><a href="/auth/trello">Logout</a></li>
-    </ul>
-    <ul class="side-nav" id="mobile-nav">
-      <li><a href="/auth/trello">Logout</a></li>
+    <ul class="right">
+      <$ if (user) { $>
+        <li><a href="/logout">Logout</a></li>
+      <$ } else { $>
+        <li><a href="/auth/trello">Login</a></li>
+      <$ } $>
     </ul>
   </div>
 </nav>
