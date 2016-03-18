@@ -3,7 +3,8 @@ var Team = require("../models/team");
 module.exports = {
   index:  index,
   show:   show,
-  create: create
+  create: create,
+  update: update
 }
 
 function show(req, res, next) {
@@ -62,3 +63,22 @@ function create(req, res, next) {
     })
   });
 };
+
+function update(req, res, next) {
+  var teamId  = req.params.id;
+  var changes = req.body;
+
+  Team
+  .findById(teamId)
+  .then(function(team) {
+    return team.update(changes);
+  })
+  .then(function(status) {
+    res.json({msg: "Updated team!", status: status});
+  });
+
+}
+
+
+
+

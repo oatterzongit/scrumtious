@@ -151,11 +151,24 @@ function addTeam(team) {
   var $team = $(renderCard(team));
 
   $team.find(".remove-card").on("click", function(evt) {
-    var teamId = team._id;
-    console.log("Remove team:", teamId);
+    removeTeam(team);
   });
 
   $('#teams-list').append($team);
+}
+
+function removeTeam(team) {
+  var teamId = team._id;
+  console.log("Remove team:", teamId);
+
+  $.ajax({
+    method: "PUT",
+    url:    "/api/teams/" + teamId,
+    data:   {active: false}
+  }).then(
+    function(succ) { console.log(succ); },
+    function(err) { console.log(err); }
+  );
 }
 
 $(function() {
