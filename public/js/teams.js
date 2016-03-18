@@ -288,4 +288,3 @@ function displayReport(bid) {
       }
     });
 }
-

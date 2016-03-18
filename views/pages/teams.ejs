@@ -9,6 +9,47 @@
   <main data-uid="<$= user.trelloId $>" data-trello-id="<$= user.trelloId $>" data-trello-token="<$= token $>" data-trello-secret="<$= secret $>">
     <h1 id="<$= team.trello_bid $>"><$= team.title $></h1>
 
+    <!-- Modal Trigger -->
+    <a class="left waves-effect waves-light btn deep-orange modal-trigger" href="#member-form">Create New Report</a>
+    <br>
+    <!-- Modal Structure -->
+    <div id="member-form" class="modal">
+      <div class="modal-content">
+
+        <div class="form">
+          <form class="col s8">
+
+            <section id="lists-menu" class="lists-menu">
+             <h5 id="this">Pick a card, any card.</h5>
+            </section>
+            <br>
+            <div class="input-field col s6">
+              <input id="current" type="text" placeholder="Not working on a card? Type it here." data-cid="" value="">
+              <label for="current">Current</label>
+            </div>
+
+
+            <div class="input-field col s6">
+              <input id="challenges" type="text" placeholder="What is troubling yas?" class="validate">
+              <label for="challenges">Challenges</label>
+            </div>
+
+            <div class="input-field col s6">
+              <input id="outlook" type="text" placeholder="What are you excited about?!" class="validate">
+              <label for="outlook">Outlook</label>
+            </div>
+          </form>
+        </div>
+
+        <button href="#!" class="btn waves-effect waves-light deep-orange" type="submit" name="action">Submit
+          <i class="material-icons right">send</i>
+        </button>
+
+      </div>
+    </div>
+    <br>
+
+
 
 
     <div class="row" id="members-list">
@@ -16,8 +57,6 @@
     </div>
 
   </main>
-
-  <$- include('../partials/reportsform') $>
   <$- include('../partials/scripts') $>
   <script src='/js/teams.js'></script>
 
