@@ -4,7 +4,7 @@ module.exports = {
   index:  index,
   show:   show,
   create: create,
-  update: update
+  update: update,
   createReport: createReport,
   // showReport: showReport,
 }
