@@ -5,7 +5,8 @@ var uid,
     trelloToken,
     trelloSecret,
     $main,
-    currentBid;
+    currentBid,
+    $current;
 
 $(document).ready(function() {
   currentBid = $('h1').attr('id')
@@ -52,15 +53,31 @@ $(document).ready(function() {
     }
   );
 
+  $current = $('#current');
+
   /// clickable drop down... so close.... thanks Karen!!!
+  function hideCard() {
+    $current.val() ? $('#lists-menu').hide() : $('#lists-menu').show();
+  };
+
+
   $('#lists-menu').delegate('li.card-id', 'click', function() {
-      var thisListId = $(this).attr('id');
-      var thisListText = $(this).text();
-      var thisArr = [];
-      console.log(thisListId, thisListText);
-      thisArr.push(thisListId, thisListText);
-      return thisArr;
+      var cardId = $(this).attr('id');
+      var cardText = $(this).text();
+      console.log(cardId, cardText);
+      $current.data('cid', cardId);
+      $current.val(cardText);
+      hideCard();
   });
+
+
+
+
+  // hide or show card/current field
+  // function modalCurrent() {
+  //   if !$current.value()
+  // };
+
 
 });
 
@@ -203,6 +220,13 @@ function createReport(memberId, current, currentId, challenges, outlook, boardId
   $.ajax({
     method: "post",
     url: "/teams/report/new",
-    data: { member: memberId, current: current, current_id: currentId, challenges: challenges, outlook: outlook, trello_bid: boardId}
-  })
+    data: {
+      member:     memberId,
+      current:    current,
+      current_id: currentId,
+      challenges: challenges,
+      outlook:    outlook,
+      trello_bid: boardId
+    }
+  });
 }

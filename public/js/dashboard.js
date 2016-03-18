@@ -121,7 +121,7 @@ function getBoardMembers(boardId) {
 function createTeam(boardId, title) {
   $.ajax({
     method: "post",
-    url: "/teams/new",
+    url: "/api/teams/",
     data: { trello_bid: boardId, title: title }
   }).then(getTeams)
 }
