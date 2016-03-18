@@ -6,7 +6,8 @@ var currentBid,
     $listDropdown,
     $membersCard,
     $listCard,
-    $cardDropdown;
+    $cardDropdown,
+    $rawReports;
 
 var listsTemplate = `
   <ul id="list-menu-content" class="collapsible" data-collapsible="accordion">
@@ -22,6 +23,8 @@ var listsTemplate = `
   </ul>
 `;
 var renderLists = _.template(listsTemplate);
+
+
 
 var cardTemplate = `
   <ul class="cards">
@@ -108,13 +111,58 @@ function getTeamMembers(teamid) {
   );
 };
 
+
 function generateTeam(members) {
   members.forEach(function(mems) {
     Trello.get("/members/" + mems.idMember + "?token=" + trelloToken, function(mem) {
       var memberTemplate = `
-      <div id="<%= mem.id %>">
-        <span><%= mem.fullName %><%= mem.initials %></span
-      </div>
+        <div class="col s4">
+          <div class="card medium hoverable">
+            <div class="card-image waves-effect waves-block waves-light">
+              <img class="activator" src="images/office.jpg">
+            </div>
+            <div class="card-content">
+              <span class="card-title activator grey-text text-darken-4" data-mid="<%= mem.id %>"><%= mem.fullName %><i class="material-icons right">more_vert</i></span>
+              <p><a href="#">Trello Profile</a></p>
+            </div>
+            <div class="card-reveal">
+              <span class="card-title grey-text text-darken-4"><%= mem.fullName %><i class="material-icons right">close</i></span>
+              <ul class="collapsible popout" data-collapsible="accordion">
+                <li>
+                  <div class="collapsible-header"><i class="material-icons">place</i>Current</div>
+                  <div class="collapsible-body container">
+
+                    <span>
+                      <input id="current" type="text" placeholder="Not working on a card? Type it here." data-cid="" value="">
+                    </span>
+
+                  </div>
+                </li>
+                <li>
+                  <div class="collapsible-header"><i class="material-icons">whatshot</i>Challenges</div>
+                  <div class="collapsible-body container">
+
+                    <span>
+                      <input id="challenges" type="text" placeholder="What is troubling yas?" class="validate">
+                    </span>
+
+                  </div>
+                </li>
+                <li>
+                  <div class="collapsible-header"><i class="material-icons">filter-drama</i>Outlook</div>
+                  <div class="collapsible-body container">
+
+                    <span>
+                      <input id="outlook" type="text" placeholder="What are you excited about?!" class="validate">
+                    </span>
+
+                  </div>
+                </li>
+                <textarea id="textarea1" placeholder="Got something to say?" class="materialize-textarea"></textarea>
+              </ul>
+            </div>
+          </div>
+        </div>
       `;
 
       var renderMembers = _.template(memberTemplate);
@@ -125,6 +173,7 @@ function generateTeam(members) {
     return members;
   })
 };
+
 
 function grabLists(boardid) {
   return Trello
@@ -202,7 +251,7 @@ function grabCards(lists) {
 function createReport(memberId, current, currentId, challenges, outlook, boardId) {
   $.ajax({
     method: "post",
-    url: "/teams/report/new",
+    url: "/teams/:b_id/reports/new",
     data: {
       member:     memberId,
       current:    current,
@@ -213,3 +262,30 @@ function createReport(memberId, current, currentId, challenges, outlook, boardId
     }
   });
 }
+
+// function dispalyReport() {
+//   $.ajax({
+//       method: "get",
+//       url: "/teams/:b_id/reports",
+//         current:    current,
+//         current_id: currentId,
+//         challenges: challenges,
+//         outlook:    outlook,
+//         trello_bid: boardId,
+//         member:     memberId
+//   })
+// }
+
+function displayReport(bid) {
+  $.ajax({
+      url: "/teams/" + bid + "/reports",
+      dataType: 'application/json',
+      complete: function(data){
+          console.log(data)
+      },
+      success: function(data){
+          console.log(data)
+      }
+    });
+}
+
