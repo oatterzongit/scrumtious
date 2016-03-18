@@ -119,7 +119,7 @@ function generateTeam(members) {
         <div class="col s4">
           <div class="card medium hoverable">
             <div class="card-image waves-effect waves-block waves-light">
-              <img class="activator" src="images/office.jpg">
+              <img class="activator" src="../images/default_pic.png">
             </div>
             <div class="card-content">
               <span class="card-title activator grey-text text-darken-4" data-mid="<%= mem.id %>"><%= mem.fullName %><i class="material-icons right">more_vert</i></span>
