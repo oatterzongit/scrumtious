@@ -137,6 +137,7 @@ function getTeams() {
   var teams = $.get('/api/teams')
   .then(function(teams) {
     clearCards();
+    teams = _.filter(teams, {'creator': trelloId});
     teams.forEach(function(team) {
       addTeam(team);
     });
