@@ -1,6 +1,6 @@
 var debug = require("debug")("app:auth");
 
-var User = require("../models/users");
+var User = require("../models/user");
 var TrelloStrategy = require("passport-trello").Strategy;
 
 module.exports = function(passport){

@@ -33,7 +33,8 @@ var teamSchema = new mongoose.Schema({
                  },
   title:         { type: String, required: true },
   trello_bid:    { type: String, required: true },
-  reports:       [reportSchema]
+  reports:       [reportSchema],
+  active:        { type: Boolean, default: true }
 });
 
 module.exports = mongoose.model('Team', teamSchema);
