@@ -7,7 +7,7 @@
   <$- include('../partials/header', {subHeading: 'Team Standup', user: user}) $>
 
   <main data-uid="<$= user.trelloId $>" data-trello-id="<$= user.trelloId $>" data-trello-token="<$= token $>" data-trello-secret="<$= secret $>">
-    <h1 id="<$= team.trello_bid $>"><$= team.title $></h1>
+    <h1 id="<$= team.trello_bid $>">&nbsp;&nbsp;&nbsp;<$= team.title $></h1>
 
     <!-- Modal Trigger -->
     <a class="left waves-effect waves-light btn deep-orange modal-trigger" href="#member-form">Create New Report</a>
