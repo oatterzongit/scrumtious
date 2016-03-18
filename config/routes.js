@@ -27,7 +27,11 @@ router.get('/users/:id', usersController.show);
 // API resources path
 router.get('/api/teams',        apiController.index);
 router.get('/api/teams/:b_id',  apiController.show);
-router.post('/api/teams',       apiController.create);
+router.post('/api/teams', apiController.create);
+router.post('/api/teams/:b_id/reports', apiController.createReport);
+// router.post('/api/teams/:b_id/reports/:b_id', apiController.showReport);
+
+
 
 
 // Passport Route

@@ -17,7 +17,7 @@ var reportSchema = new mongoose.Schema({
   challenges:    { type: String, required: true },
   outlook:       { type: String, required: true },
   trello_bid:    { type: String, required: true },
-  // user:          [userSchema], // ref to user
+  member:        { type: String, required: true },
   comments:      [commentSchema]
 });
 
