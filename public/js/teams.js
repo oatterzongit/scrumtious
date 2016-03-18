@@ -29,11 +29,14 @@ var renderLists = _.template(listsTemplate);
 var cardTemplate = `
   <ul class="cards">
     <% cards.forEach(function(card) { %>
-      <li class="card-id" id="<%= card.id %>">
+      <li class="card hoverable card-id" id="<%= card.id %>">
         <%= card.name %>
       </li>
     <% }); %>
   </ul>
+
+
+
 `;
 var renderCards = _.template(cardTemplate);
 
@@ -119,7 +122,7 @@ function generateTeam(members) {
         <div class="col s4">
           <div class="card medium hoverable">
             <div class="card-image waves-effect waves-block waves-light">
-              <img class="activator" src="../images/default_pic.png">
+              <img class="activator" src="../images/default_pic_two.png">
             </div>
             <div class="card-content">
               <span class="card-title activator grey-text text-darken-4" data-mid="<%= mem.id %>"><%= mem.fullName %><i class="material-icons right">more_vert</i></span>
