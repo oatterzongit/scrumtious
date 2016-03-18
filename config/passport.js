@@ -22,7 +22,7 @@ module.exports = function(passport){
   passport.use("trello", new TrelloStrategy({
       consumerKey:       process.env.CID,
       consumerSecret:    process.env.CLS,
-      callbackURL:       "http://localhost:3000/auth/trello/callback",
+      callbackURL:       "/auth/trello/callback",
       passReqToCallback: true,
 
       trelloParams: {
