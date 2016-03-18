@@ -123,7 +123,7 @@ function generateTeam(members) {
             </div>
             <div class="card-content">
               <span class="card-title activator grey-text text-darken-4" data-mid="<%= mem.id %>"><%= mem.fullName %><i class="material-icons right">more_vert</i></span>
-              <p><a href="#">Trello Profile</a></p>
+              <p><a href="https://trello.com/<%= mem.id %>">Trello Profile</a></p>
             </div>
             <div class="card-reveal">
               <span class="card-title grey-text text-darken-4"><%= mem.fullName %><i class="material-icons right">close</i></span>
@@ -247,7 +247,7 @@ function grabCards(lists) {
   });
 }
 
-
+// All routing and Controllers have been setup but couldnt finish
 function createReport(memberId, current, currentId, challenges, outlook, boardId) {
   $.ajax({
     method: "post",
@@ -262,6 +262,8 @@ function createReport(memberId, current, currentId, challenges, outlook, boardId
     }
   });
 }
+
+// Same as above, couldnt finish implimenting
 
 // function dispalyReport() {
 //   $.ajax({
