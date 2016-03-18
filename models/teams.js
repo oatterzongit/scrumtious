@@ -18,6 +18,7 @@ var reportSchema = new mongoose.Schema({
   outlook:       { type: String, required: true },
   trello_bid:    { type: String, required: true },
   member:        { type: String, required: true },
+  memberName:    { type: String, required: true },
   comments:      [commentSchema]
 });
 
