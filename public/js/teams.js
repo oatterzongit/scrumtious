@@ -9,7 +9,11 @@ var currentBid,
     $cardDropdown;
 
 var listsTemplate = `
+<<<<<<< HEAD
   <ul id="list-menu-content" class="collapsible" data-collapsible="accordion">
+=======
+  <ul id="list-menu-content" class="collapsible" data-collapsible="expandable">
+>>>>>>> bb0c29e2e1863c033316868fc819f063843c5fc3
     <% lists.forEach(function(list) { %>
       <li class="bold-text list-id" id="<%= list.id %>">
         <div class="collapsible-header"><%= list.name %><i class="material-icons">arrow_drop_down</i></div>
