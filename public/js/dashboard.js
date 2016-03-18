@@ -150,14 +150,21 @@ function clearCards() {
 function addTeam(team) {
   var $team = $(renderCard(team));
 
-  $team.find(".remove-card").on("click", function(evt) {
-    removeTeam(team);
-  });
+  if (team.active) {
+    $team.find(".remove-card").on("click", function(evt) {
+      removeTeam(team, $team);
+    });
+  } else {
+    // team is inactive
+    $team.find(".btn").on("click", function(evt) {
+      evt.preventDefault();
+    });
+  }
 
   $('#teams-list').append($team);
 }
 
-function removeTeam(team) {
+function removeTeam(team, $el) {
   var teamId = team._id;
   console.log("Remove team:", teamId);
 
@@ -168,7 +175,12 @@ function removeTeam(team) {
   }).then(
     function(succ) { console.log(succ); },
     function(err) { console.log(err); }
-  );
+  ).then(function() {
+    // re-render
+    team.active = false;
+    $el.remove();
+    $('#teams-list').append(renderCard(team));
+  });
 }
 
 $(function() {
@@ -177,15 +189,19 @@ $(function() {
     <div class="col s3 m3">
       <div class="team-card card small hoverable">
         <div class="card-image">
-          <img id="team-card-image"src="images/team.png">
-          <span id="teamcard-title" class="card-title center-align"><%= title %></span>
+          <img id="team-card-image" <%= active ? "" : 'class="desaturate"' %> src="images/team.png">
+          <span id="teamcard-title" class="card-title center-align <%= active ? "" : 'desaturate' %>"><%= title %></span>
         </div>
         <div class="card-content">
           <p><%= creator %></p>
         </div>
         <div class="card-action">
-          <a class="waves-effect waves-light btn" href="/teams/<%= _id %>">Visit Team</a>
-          <a class="btn-floating btn-small waves-effect waves-light red remove-card"><i class="material-icons">remove</i></a>
+          <% if (active) { %>
+            <a class="waves-effect waves-light btn" href="/teams/<%= _id %>">Visit Team</a>
+            <a class="btn-floating btn-small waves-effect waves-light red remove-card"><i class="material-icons">remove</i></a>
+          <% } else { %>
+            <a class="waves-effect waves-light btn disabled" href="/teams/<%= _id %>">Team Inactive</a>
+          <% } %>
         </div>
       </div>
     </div>
