@@ -1,38 +1,25 @@
 <header>
-<!--   <h1><%= title %></h1>
-  <h2><%= subHeading %></h2>
- -->
-<!--
-<nav>
-  <div class="nav-wrapper">
-    <a href="#" class="brand-logo">SCRUM*TIOUS</a>
-    <ul id="nav-mobile" class="right hide-on-med-and-down">
-      <span>Welcome: currentUser</span> &nbsp;
-      <li><a href="" class="log-out">Logout</a></li>
-    </ul>
-  </div>
-</nav> -->
 
-<nav>
-  <div class="nav-wrapper">
-    <a href="#" class="brand-logo">SCRUM*TIOUS</a>
-    <a href="#" data-activates="mobile-nav" class="button-collapse"><i class="material-icons">menu</i></a>
-    <ul class="right">
-      <$ if (user) { $>
-        <li><a href="/logout">Logout</a></li>
-      <$ } else { $>
-        <li><a href="/auth/trello">Login</a></li>
-      <$ } $>
-    </ul>
-  </div>
-</nav>
+  <nav>
+    <div class="nav-wrapper">
+      <a href="/" class="brand-logo">SCRUM*TIOUS</a>
+      <a href="#" data-activates="mobile-nav" class="button-collapse"><i class="material-icons">menu</i></a>
+      <ul class="right">
+        <$ if (user) { $>
+          <li><a href="/logout">Logout</a></li>
+        <$ } else { $>
+          <li><a href="/auth/trello">Login</a></li>
+        <$ } $>
+      </ul>
+    </div>
+  </nav>
 
-<nav class="secondary-wrapper">
-  <ul id="nav-mobile" class="left buffer">
-    <li><a href="/dashboard" class="my-feed">DASHBOARD</a></li>
-    <!-- <li><a href="/teams" class="my-teams">MY TEAMS</a></li> -->
-  </ul>
-</nav>
+  <nav class="secondary-wrapper">
+    <ul id="nav-mobile" class="left buffer">
+      <li><a href="/dashboard" class="my-feed">DASHBOARD</a></li>
+      <!-- <li><a href="/teams" class="my-teams">MY TEAMS</a></li> -->
+    </ul>
+  </nav>
 
   <!-- <hr> -->
 </header>

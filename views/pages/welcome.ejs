@@ -4,7 +4,21 @@
   <$- include('../partials/head') $>
 </head>
 
-<$- include('../partials/header', {subHeading: 'Welcome', user: user}) $>
+<header>
+  <nav>
+    <div class="nav-wrapper">
+      <a href="#" class="brand-logo">SCRUM*TIOUS</a>
+      <a href="#" data-activates="mobile-nav" class="button-collapse"><i class="material-icons">menu</i></a>
+      <ul class="right">
+        <$ if (user) { $>
+          <li><a href="/logout">Logout</a></li>
+        <$ } else { $>
+          <li><a href="/auth/trello">Login</a></li>
+        <$ } $>
+      </ul>
+    </div>
+  </nav>
+</header>
 
 <body>
 
