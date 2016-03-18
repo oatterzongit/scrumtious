@@ -79,22 +79,6 @@ function getUsersBoards(trelloToken) {
  * AJAX / RENDERING FUNCTIONS ==========================================
  */
 
-// function loadBoardsAsDivs(boards) {
-//   boards.forEach(function(board){
-//     var boardTemplate = `
-//       <div id="<%= board.id %>">
-//         <a href="<%= board.shortUrl %>"><%= board.name %></a>
-//       <div>
-//     `;
-
-//     var renderBoard = _.template(boardTemplate);
-//     var boardHTML   = renderBoard({board: board});
-
-//     $boardList.append(boardHTML);
-//   });
-//   return boards;
-// }
-
 function loadBoardsAsOptions(boards) {
   boards.forEach(function(board){
     var boardTemplate = `
@@ -137,6 +121,7 @@ function getTeams() {
   var teams = $.get('/api/teams')
   .then(function(teams) {
     clearCards();
+    teams = _.filter(teams, {'creator': trelloId});
     teams.forEach(function(team) {
       addTeam(team);
     });

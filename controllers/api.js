@@ -1,4 +1,5 @@
 var Team = require("../models/team");
+var _ = require('lodash');
 
 module.exports = {
   index:  index,
@@ -24,7 +25,6 @@ function index(req, res) {
     if (err) {
       res.send(err);
     }
-
     // Return all teams as json
     res.json(teams);
   });
