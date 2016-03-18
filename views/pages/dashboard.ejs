@@ -5,7 +5,7 @@
 </head>
   <$- include('../partials/header', {subHeading: 'Dashboard', user: user}) $>
   <body>
-  <main data-uid="<$= user._id $>" data-trello-id="<$= user.trelloId $>" data-trello-token="<$= token $>" data-trello-secret="<$= secret $>">
+  <main data-uid="<$= user.trelloId $>" data-trello-id="<$= user.trelloId $>" data-trello-token="<$= token $>" data-trello-secret="<$= secret $>">
     <h4 class="">My Current Teams</h4>
     <div id="teams-list" class="row">
       <!-- teams template here -->
