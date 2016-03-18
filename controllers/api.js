@@ -1,4 +1,4 @@
-var Team = require("../models/teams");
+var Team = require("../models/team");
 
 module.exports = {
   index:  index,
