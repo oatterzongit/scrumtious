@@ -3,7 +3,9 @@ var Team = require("../models/teams");
 module.exports = {
   index:  index,
   show:   show,
-  create: create
+  create: create,
+  createReport: createReport,
+  // showReport: showReport,
 }
 
 function show(req, res, next) {
@@ -62,3 +64,36 @@ function create(req, res, next) {
     })
   });
 };
+
+
+function createReport(req, res, next) {
+  console.log(req.body);
+  console.log(req.user);
+  Team.reports.create({
+        current: current,
+        current_id: currentId,
+        challenges: challenges,
+        outlook: outlook,
+        trello_bid: boardId,
+        member: memberId
+  })
+    .then(function(report) {
+      // from boardId grab users from trello API??
+      // grab unique user id from users??
+      // for each user get fullName, ID, email address and add to team??
+
+      // return TEAM object
+      res.json({
+        msg:  "Report created!",
+        report: report
+    })
+  });
+};
+
+
+// function showReport(req, res, next) {
+//   Team.find({trello_bid: req.params.b_id}, function(err, report) {
+//     if (err) res.render(err);
+//     res.json(report);
+//   })
+// };

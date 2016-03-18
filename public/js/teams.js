@@ -5,7 +5,8 @@ var uid,
     trelloToken,
     trelloSecret,
     $main,
-    currentBid;
+    currentBid,
+    $current;
 
 $(document).ready(function() {
   currentBid = $('h1').attr('id')
@@ -52,24 +53,32 @@ $(document).ready(function() {
     }
   );
 
+  $current = $('#current');
+
   /// clickable drop down... so close.... thanks Karen!!!
+  function hideCard() {
+    $current.val() ? $('#lists-menu').hide() : $('#lists-menu').show();
+  };
+
+
   $('#lists-menu').delegate('li.card-id', 'click', function() {
-      var thisListId = $(this).attr('id');
-      var thisListText = $(this).text();
-      // console.log(thisListId);
-      // getBoardMembers(thisId)
-      console.log(thisListId, thisListText);
+      var cardId = $(this).attr('id');
+      var cardText = $(this).text();
+      console.log(cardId, cardText);
+      $current.data('cid', cardId);
+      $current.val(cardText);
+      hideCard();
   });
 
 
-  /// clickable drop down... so close.... thanks Karen!!!
-  $('#carddropdown1').delegate('li', 'click', function() {
-      var thisCardId = $(this).attr('id');
-      var thisCardText = $(this).text();
-      // console.log(thisCardId);
-      // getBoardMembers(thisId)
-      console.log(thisCardId, thisCardText);
-  });
+
+
+  // hide or show card/current field
+  // function modalCurrent() {
+  //   if !$current.value()
+  // };
+
+
 });
 
 
@@ -203,5 +212,21 @@ function grabCards(lists) {
   return Promise.all(promises).then(function() {
     console.log("All cards received, sir!");
     return newLists;
+  });
+}
+
+
+function createReport(memberId, current, currentId, challenges, outlook, boardId) {
+  $.ajax({
+    method: "post",
+    url: "/teams/report/new",
+    data: {
+      member:     memberId,
+      current:    current,
+      current_id: currentId,
+      challenges: challenges,
+      outlook:    outlook,
+      trello_bid: boardId
+    }
   });
 }
