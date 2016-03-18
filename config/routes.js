@@ -30,6 +30,7 @@ router.get( '/api/teams/:b_id',           apiController.show);
 router.post('/api/teams',                 apiController.create);
 router.put( '/api/teams/:id',             apiController.update);
 router.post('/api/teams/:b_id/reports',   apiController.createReport);
+router.get('.api/teams/:b_id/reports',    apiController.indexReports)
 // router.post('/api/teams/:b_id/reports/:b_id', apiController.showReport);
 
 

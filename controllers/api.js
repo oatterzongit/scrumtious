@@ -6,7 +6,7 @@ module.exports = {
   create: create,
   update: update,
   createReport: createReport,
-  // showReport: showReport,
+  indexReports: indexReports,
 }
 
 function show(req, res, next) {
@@ -15,6 +15,7 @@ function show(req, res, next) {
     res.json(team[0]);
   })
 };
+
 
 function index(req, res) {
   console.log(req.body);
@@ -106,10 +107,12 @@ function createReport(req, res, next) {
   });
 };
 
+function indexReports(req, res, next) {
+  Team.findOne({trello_bid: req.body.trello_bid})
+  .then(function(err, team) {
+    if (err) res.render(err);
+    res.json(team.reports)
+  })
+};
 
-// function showReport(req, res, next) {
-//   Team.find({trello_bid: req.params.b_id}, function(err, report) {
-//     if (err) res.render(err);
-//     res.json(report);
-//   })
-// };
+

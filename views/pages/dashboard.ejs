@@ -4,40 +4,6 @@
   <$- include('../partials/head') $>
 </head>
   <$- include('../partials/header', {subHeading: 'Dashboard', user: user}) $>
-  <body>
-  <main data-uid="<$= user._id $>" data-trello-id="<$= user.trelloId $>" data-trello-token="<$= token $>" data-trello-secret="<$= secret $>">
-    <h4 class="">My Current Teams</h4>
-    <div id="teams-list" class="row">
-      <!-- teams template here -->
-    </div>
-
-    <div id="members-list">
-
-      <!-- insertion point for team members -->
-    </div>
-
-    <form>
-      <label for="boards">My Boards</label>
-      <select id="boards-dropdown"></select>
-    </form>
-
-    <ul class="drop-down" id="board-list">
-     <!-- template goes here for each board -->
-
-
-    <!-- Dropdown Trigger -->
-    <a class='dropdown-button btn dark-orange' href='#' data-activates='dropdown1'>My Boards</a>
-
-    <!-- Dropdown Structure -->
-    <ul id='dropdown1' class='dropdown-content'>
-      <!-- Template Insertion Point -->
-    </ul>
-
-  </main>
-
-  <$- include('../partials/scripts') $>
-  <script src='/js/dashboard.js'></script>
-</body>
 
     <main data-uid="<$= user._id $>" data-trello-id="<$= user.trelloId $>" data-trello-token="<$= token $>" data-trello-secret="<$= secret $>">
 
