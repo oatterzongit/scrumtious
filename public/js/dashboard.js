@@ -1,52 +1,59 @@
 console.log('Dashboard.JS loaded!');
 
-var uid,
-    trelloId,
-    trelloToken,
-    trelloSecret,
-    $boardList;
+var $boardList,
+    renderCard;
 
 $(document).ready(function() {
-  $main = $("main");
-  uid          = $main.data("uid");
-  trelloId     = $main.data("trello-id");
-  trelloToken  = $main.data("trello-token");
-  trelloSecret = $main.data("trello-secret");
+  renderCard = _.template(`
+    <div class="col s3 m3">
+      <div class="team-card card small hoverable">
+        <div class="card-image">
+          <img id="team-card-image" <%= active ? "" : 'class="desaturate"' %> src="images/team.png">
+          <span id="teamcard-title" class="card-title center-align <%= active ? "" : 'desaturate' %>"><%= title %></span>
+        </div>
+        <div class="card-content">
+          <p><%= creator %></p>
+        </div>
+        <div class="card-action">
+          <% if (active) { %>
+            <a class="waves-effect waves-light btn" href="/teams/<%= _id %>">Visit Team</a>
+            <a class="btn-floating btn-small waves-effect waves-light red remove-card"><i class="material-icons">remove</i></a>
+          <% } else { %>
+            <a class="waves-effect waves-light btn disabled" href="/teams/<%= _id %>">Team Inactive</a>
+          <% } %>
+        </div>
+      </div>
+    </div>
+  `);
 
-  $boardList = $("#board-list");
-  $boardDropdown = $("#dropdown1");
-
-  if (!trelloToken) {
-    console.log("Current user's Trello token unavailable!");
-    return;
-  }
+  getTeams();
 
   // Drop Down menu action
-$('.dropdown-button').dropdown(
-  {
-    inDuration: 300,
-    outDuration: 225,
-    constrain_width: false, // Does not change width of dropdown to that of the activator
-    hover: true, // Activate on hover
-    gutter: 0, // Spacing from edge
-    belowOrigin: true, // Displays dropdown below the button
-    alignment: 'left' // Displays dropdown with edge aligned to the left of button
-  }
-);
+  $('.dropdown-button').dropdown(
+    {
+      inDuration: 300,
+      outDuration: 225,
+      constrain_width: false, // Does not change width of dropdown to that of the activator
+      hover: true, // Activate on hover
+      gutter: 0, // Spacing from edge
+      belowOrigin: true, // Displays dropdown below the button
+      alignment: 'left' // Displays dropdown with edge aligned to the left of button
+    }
+  );
 
-/// clickable drop down... so close.... thanks Karen!!!
-$('#dropdown1').delegate('li', 'click', function() {
-    var thisId = $(this).attr('id');
-    var thisText = $(this).text();
-    console.log(thisId);
-    // getBoardMembers(thisId)
-    createTeam(thisId, thisText);
-});
+  /// clickable drop down... so close.... thanks Karen!!!
+  $('#dropdown1').delegate('li', 'click', function() {
+      var thisId = $(this).attr('id');
+      var thisText = $(this).text();
+      console.log(thisId);
+      // getBoardMembers(thisId)
+      createTeam(thisId, thisText);
+  });
 
-  // Get the user's boards!
-  getUsersBoards(trelloToken)
-    // .then(loadBoardsAsDivs)
-    .then(loadBoardsAsOptions);
+    // Get the user's boards!
+    getUsersBoards(trelloToken)
+      // .then(loadBoardsAsDivs)
+      .then(loadBoardsAsOptions);
 });
 
 /*
@@ -126,10 +133,6 @@ function createTeam(boardId, title) {
   }).then(getTeams)
 }
 
-// Display Team Cards
-
-var renderCard;
-
 function getTeams() {
   var teams = $.get('/api/teams')
   .then(function(teams) {
@@ -182,31 +185,3 @@ function removeTeam(team, $el) {
     $('#teams-list').append(renderCard(team));
   });
 }
-
-$(function() {
-
-  renderCard = _.template(`
-    <div class="col s3 m3">
-      <div class="team-card card small hoverable">
-        <div class="card-image">
-          <img id="team-card-image" <%= active ? "" : 'class="desaturate"' %> src="images/team.png">
-          <span id="teamcard-title" class="card-title center-align <%= active ? "" : 'desaturate' %>"><%= title %></span>
-        </div>
-        <div class="card-content">
-          <p><%= creator %></p>
-        </div>
-        <div class="card-action">
-          <% if (active) { %>
-            <a class="waves-effect waves-light btn" href="/teams/<%= _id %>">Visit Team</a>
-            <a class="btn-floating btn-small waves-effect waves-light red remove-card"><i class="material-icons">remove</i></a>
-          <% } else { %>
-            <a class="waves-effect waves-light btn disabled" href="/teams/<%= _id %>">Team Inactive</a>
-          <% } %>
-        </div>
-      </div>
-    </div>
-  `);
-
-    getTeams();
-
-})

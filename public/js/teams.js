@@ -1,22 +1,41 @@
 console.log("teams JS loaded!");
 
-var uid,
-    trelloId,
-    trelloToken,
-    trelloSecret,
-    $main,
-    currentBid;
+var currentBid,
+    $membersList,
+    $listList,
+    $listDropdown,
+    $membersCard,
+    $listCard,
+    $cardDropdown;
+
+var listsTemplate = `
+  <ul id="list-menu-content" class="collapsible" data-collapsible="expandable">
+    <% lists.forEach(function(list) { %>
+      <li class="bold-text list-id" id="<%= list.id %>">
+        <div class="collapsible-header"><%= list.name %><i class="material-icons">arrow_drop_down</i></div>
+        <div class="collapsible-body">
+          <%= renderCards({cards: list.cards}) %>
+        </div>
+      </li>
+      <li class="divider"></li>
+    <% }); %>
+  </ul>
+`;
+var renderLists = _.template(listsTemplate);
+
+var cardTemplate = `
+  <ul class="cards">
+    <% cards.forEach(function(card) { %>
+      <li class="card-id" id="<%= card.id %>">
+        <%= card.name %>
+      </li>
+    <% }); %>
+  </ul>
+`;
+var renderCards = _.template(cardTemplate);
 
 $(document).ready(function() {
-  currentBid = $('h1').attr('id')
-  $main = $("main");
-  uid          = $main.data("uid");
-  trelloId     = $main.data("trello-id");
-  trelloToken  = $main.data("trello-token");
-  trelloSecret = $main.data("trello-secret");
-  console.log(trelloToken);
-
-  $(".modal-trigger").leanModal();
+  currentBid = $('h1').attr('id');
 
   $membersList = $('#members-list');
   $listList = $("#list-list");
@@ -26,20 +45,16 @@ $(document).ready(function() {
   $listCard = $("#card-list");
   $cardDropdown = $("#carddropdown1");
 
-  if (!trelloToken) {
-    console.log("Current user's Trello token unavailable!");
-    return;
-  }
-
   grabLists(currentBid)
     .then(function(lists) { console.log("Grabbed lists:", lists); return lists; })
     .then(loadLists);
 
   getTeamMembers(currentBid, trelloToken)
-  .then(generateTeam);
+    .then(generateTeam);
 
+  $(".modal-trigger").leanModal();
 
-    // Drop Down menu action
+  // Drop Down menu action
   $('.dropdown-button').dropdown(
     {
       inDuration: 300,
@@ -61,7 +76,6 @@ $(document).ready(function() {
       console.log(thisListId, thisListText);
   });
 
-
   /// clickable drop down... so close.... thanks Karen!!!
   $('#carddropdown1').delegate('li', 'click', function() {
       var thisCardId = $(this).attr('id');
@@ -71,10 +85,6 @@ $(document).ready(function() {
       console.log(thisCardId, thisCardText);
   });
 });
-
-
-
-
 
 function getTeamMembers(teamid) {
   return Trello
@@ -123,32 +133,6 @@ function grabLists(boardid) {
 }
 
 function loadLists(lists) {
-  var listsTemplate = `
-    <ul id="list-menu-content" class="collapsible" data-collapsible="expandable">
-      <% lists.forEach(function(list) { %>
-        <li class="bold-text list-id" id="<%= list.id %>">
-          <div class="collapsible-header"><%= list.name %><i class="material-icons">arrow_drop_down</i></div>
-          <div class="collapsible-body">
-            <%= renderCards({cards: list.cards}) %>
-          </div>
-        </li>
-        <li class="divider"></li>
-      <% }); %>
-    </ul>
-  `;
-  var renderLists = _.template(listsTemplate);
-
-  var cardTemplate = `
-    <ul class="cards">
-      <% cards.forEach(function(card) { %>
-        <li class="card-id" id="<%= card.id %>">
-          <%= card.name %>
-        </li>
-      <% }); %>
-    </ul>
-  `;
-  var renderCards = _.template(cardTemplate);
-
   grabCards(lists).then(function(lists) {
     console.log("Received the complete array of lists, captain!", lists);
 
